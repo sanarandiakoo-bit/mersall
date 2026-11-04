@@ -47,6 +47,7 @@
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
         .animate-on-scroll.visible {
@@ -210,6 +211,7 @@
         #section-amplop {
             background-color: var(--bg-maroon);
             background-image: url('images/bg-amplop.svg');
+            background-attachment: fixed;
             justify-content: center;
         }
 
@@ -234,10 +236,11 @@
             50% { transform: rotate(3deg) translateY(-3px); }
         }
 
-        /* 2. Bagian Profil Mempelai (Format Asli) */
+        /* 2. Bagian Profil Mempelai (Background Terkunci) */
         #section-profil {
-            background-image: url('images/bg-mempelai.svg');
+            background-image: url('images/bg-mempelai.jpg');
             background-position: 14% center;
+            background-attachment: fixed;
             overflow: hidden;
             padding: 30px 10px;
             justify-content: center;
@@ -253,13 +256,14 @@
             align-items: center;
         }
 
-        /* 3. Bagian Akad Nikah */
+        /* 3. Bagian Akad Nikah (Gambar Masjid Full Kiri-Kanan Menempel di Bawah) */
         #section-akad {
             background-color: var(--bg-maroon);
             background-image: linear-gradient(rgba(90, 24, 38, 0.85), rgba(90, 24, 38, 0.85)), url('images/tekstur-kertas.jpg');
             background-size: cover;
             background-position: center;
-            padding: 40px 0 0 0;
+            background-attachment: fixed;
+            padding: 40px 0 0 0; /* Padding kiri-kanan diset 0 agar gambar masjid bisa full */
             overflow: hidden;
         }
 
@@ -283,6 +287,7 @@
             filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
         }
 
+        /* --- KELAS KHUSUS GAMBAR MASJID FULL KIRI-KANAN DI BAWAH (TIDAK TERPOTONG) --- */
         .masjid-footer-img {
             position: absolute;
             bottom: 0;
@@ -291,10 +296,10 @@
             height: auto;
             display: block;
             pointer-events: none;
-            object-fit: contain;
+            object-fit: contain; /* Menggunakan contain agar seluruh detail gambar masjid terlihat utuh tanpa terpotong */
         }
 
-        /* --- COUNTDOWN TIMER --- */
+        /* --- COUNTDOWN TIMER (ALAMI DI TENGAH) --- */
         .countdown-container {
             display: flex;
             gap: 6px;
@@ -332,7 +337,7 @@
             opacity: 0.9;
         }
 
-        /* 4. Bagian Our Love Story */
+        /* 4. Bagian Our Love Story (Background Slideshow Terkunci) */
         #section-story {
             position: relative;
             min-height: 100vh;
@@ -359,6 +364,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
@@ -430,14 +436,14 @@
             text-align: justify;
         }
 
-        /* 5. Bagian Wedding Wish & Voice Note */
+        /* 5. Bagian Wedding Wish */
         #section-rsvp {
             background-color: var(--bg-maroon);
             background-image: linear-gradient(rgba(90, 24, 38, 0.95), rgba(90, 24, 38, 0.95)), url('images/tekstur-kertas.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             justify-content: flex-start;
-            padding-bottom: 60px;
         }
 
         .wedding-wish-container {
@@ -476,43 +482,6 @@
             box-shadow: 0 0 0 2px #e0ac69;
         }
 
-        /* Tombol Rekam VN */
-        .btn-record {
-            background: #d9534f;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .btn-record.recording {
-            background: #28a745;
-            animation: pulseRecord 1.2s infinite;
-        }
-        @keyframes pulseRecord {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        .preview-audio {
-            width: 100%;
-            height: 32px;
-            margin-top: 4px;
-            display: none;
-        }
-        .preview-audio.active {
-            display: block;
-        }
-
         .btn-wish-submit {
             width: 100%;
             padding: 12px;
@@ -526,7 +495,6 @@
             transition: transform 0.2s ease, background-color 0.2s ease;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            margin-top: 4px;
         }
 
         .btn-wish-submit:hover {
@@ -535,12 +503,12 @@
 
         .wish-comments-list {
             width: 100%;
-            max-height: 320px;
+            max-height: 260px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 15px;
             padding-right: 4px;
         }
 
@@ -579,13 +547,6 @@
             line-height: 1.4;
             color: #444;
             word-break: break-word;
-            margin-bottom: 6px;
-        }
-
-        .comment-audio {
-            width: 100%;
-            height: 32px;
-            margin-top: 6px;
         }
 
         .empty-wish {
@@ -594,26 +555,6 @@
             font-style: italic;
             margin-top: 20px;
             text-align: center;
-        }
-
-        /* =======================================================
-           KODE ANTI NETLIFY BADGE - SEMBUNYIKAN SECARA PAKSA 
-           ======================================================= */
-        [class*="netlify"], 
-        [id*="netlify"],
-        iframe[class*="netlify"],
-        iframe[src*="netlify"],
-        .powered-by-netlify,
-        #netlify-badge,
-        .netlify-badge {
-            display: none !important;
-            visibility: hidden !important;
-            height: 0 !important;
-            width: 0 !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            position: absolute !important;
-            left: -9999px !important;
         }
     </style>
 </head>
@@ -633,15 +574,14 @@
     <!-- HALAMAN COVER -->
     <div class="device-wrapper" id="coverScreen">
         <div class="cover-content">
-            <img src="images/bingkai-renda.png" alt="Bingkai Renda" class="adjustable-asset" style="--w: 240px; --t: 40px; --l: 50%; --tx: -50%; pointer-events: none;">
+            <img src="images/bingkai-renda.png" alt="Bingkai Renda" class="adjustable-asset" style="--w: 240px; --t: 40px; --l: 50%; --tx: -50%;">
             <div class="guest-info adjustable-asset" style="--w: 90%; --t: 370px; --l: 50%; --tx: -50%;">
                 <p>Kepada Yth.</p>
                 <p>Bapak/Ibu/Saudara/i</p>
                 <h3 id="guestName">Tamu Undangan</h3>
             </div>
-            <!-- Tombol Buka Undangan -->
-            <button class="btn-image-open adjustable-asset" onclick="openInvitation()" style="background: transparent; border: none; cursor: pointer; padding: 0; --w: 170px; --b: 50px; --l: 50%; --tx: -50%; z-index: 999;">
-                <img src="images/tombol-buka.png" alt="Buka Undangan" style="width: 100%; display: block; pointer-events: none;">
+            <button class="btn-image-open adjustable-asset" onclick="openInvitation()" style="background: transparent; border: none; cursor: pointer; padding: 0; --w: 170px; --b: 50px; --l: 50%; --tx: -50%;">
+                <img src="images/tombol-buka.png" alt="Buka Undangan" style="width: 100%; display: block;">
             </button>
         </div>
     </div>
@@ -663,7 +603,7 @@
                 <img src="images/judul-mempelai.png" alt="Judul Mempelai" class="adjustable-asset animate-on-scroll" style="--w: 240px; --t: 8px; --l: 50%; --tx: -50%; z-index: 2;">
                 <img src="images/mempelai-wanita.png" alt="Meri Mauliza" class="adjustable-asset animate-from-left" style="--w: 205px; --t: 3px; --l: 0px;">
                 <img src="images/teks-wanita.png" alt="Meri Mauliza S.P.W.K" class="adjustable-asset animate-from-left" style="--w: 215px; --t: 262px; --l: 10px; transition-delay: 0.2s;">
-                <img src="images/simbol-and.png" alt="&" class="adjustable-asset animate-on-scroll" style="--w: 65px; --t: 360px; --l: 50%; transform: translate(-50%, -50%); z-index: 3;">
+                <img src="images/simbol-and.svg" alt="&" class="adjustable-asset animate-on-scroll" style="--w: 65px; --t: 360px; --l: 50%; transform: translate(-50%, -50%); z-index: 3;">
                 <img src="images/mempelai-pria.png" alt="Muhammad Aqshal" class="adjustable-asset animate-from-right" style="--w: 205px; --t: 421px; --r: 0px;">
                 <img src="images/teks-pria.png" alt="Muhammad Aqshal Lubis S.P.W.K" class="adjustable-asset animate-from-right" style="--w: 235px; --t: 679px; --r: 10px; transition-delay: 0.2s;">
             </div>
@@ -672,9 +612,14 @@
         <!-- SECTION 3: AKAD NIKAH -->
         <section class="section" id="section-akad">
             <div class="akad-layout animate-on-scroll">
+                
+                <!-- 1. JUDUL AKAD NIKAH -->
                 <img src="images/akad-title.png" alt="Akad Nikah" class="akad-realistic-shadow" style="width: 200px; height: auto; display: block;">
+                
+                <!-- 2. GAMBAR JAM / WAKTU AKAD NIKAH -->
                 <img src="images/akad-waktu.png" alt="Sabtu, 5 Desember 2026 - Pukul 09:20 WIB" class="akad-realistic-shadow" style="width: 300px; height: auto; display: block;">
                 
+                <!-- 3. COUNTDOWN TIMER -->
                 <div class="countdown-container">
                     <div class="countdown-box">
                         <span class="countdown-number" id="days">00</span>
@@ -694,13 +639,17 @@
                     </div>
                 </div>
 
+                <!-- 4. LOKASI AKAD NIKAH -->
                 <img src="images/akad-lokasi.png" alt="Lokasi Masjid Raya Baiturrahman" class="akad-realistic-shadow" style="width: 260px; height: auto; display: block;">
                 
+                <!-- 5. TOMBOL GOOGLE MAPS -->
                 <a href="https://maps.app.goo.gl/Rgqs9VAcAnbMc28r5" target="_blank" class="akad-realistic-shadow" style="width: 170px; display: block; text-decoration: none;">
                     <img src="images/btn-maps.png" alt="Buka Google Maps" style="width: 100%; display: block;">
                 </a>
 
+                <!-- 6. GAMBAR MASJID DI BAWAH (FULL KIRI-KANAN & UTUH) -->
                 <img src="images/masjid-raya.png" alt="Masjid Raya Baiturrahman" class="akad-realistic-shadow masjid-footer-img">
+
             </div>
         </section>
 
@@ -726,7 +675,7 @@
             </div>
         </section>
 
-        <!-- SECTION 5: WEDDING WISH & VOICE NOTE -->
+        <!-- SECTION 5: WEDDING WISH -->
         <section class="section" id="section-rsvp">
             <div class="wedding-wish-container animate-on-scroll">
                 <img src="images/wedding-wish-title.png" alt="Wedding Wish" style="width: 240px; height: auto; margin-bottom: 5px; display: block;" onerror="this.style.display='none'">
@@ -734,18 +683,9 @@
                 <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 10px;">Kirimkan Doa & Ucapan Kepada kedua Mempelai</p>
                 
                 <form class="wish-form" id="wishForm" onsubmit="handleWishSubmit(event)">
-                    <input type="text" id="wishName" required placeholder="Nama Anda">
-                    <textarea id="wishMessage" rows="3" required placeholder="Tulis ucapan atau doa..."></textarea>
-                    
-                    <div>
-                        <label style="font-size: 0.7rem; text-transform: uppercase; color: #e0ac69; display: block; margin-bottom: 4px;">Voice Note Doa (Opsional)</label>
-                        <button type="button" class="btn-record" id="recBtn" onclick="toggleRecording()">
-                            <span id="recordIcon">🎙️</span> <span id="recordLabel">Rekam Suara Doa</span>
-                        </button>
-                        <audio id="audioPreview" class="preview-audio" controls></audio>
-                    </div>
-
-                    <button type="submit" class="btn-wish-submit" id="submitBtn">Kirimkan Ucapan & Doa</button>
+                    <input type="text" id="wishName" required placeholder="Nama">
+                    <textarea id="wishMessage" rows="3" required placeholder="Pesan"></textarea>
+                    <button type="submit" class="btn-wish-submit">Kirimkan Ucapan</button>
                 </form>
 
                 <div class="wish-comments-list" id="wishCommentsList">
@@ -760,7 +700,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAOdWPG3YqbAARA1cfQkvsuPbgSejoTS4g",
@@ -774,7 +713,6 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         // --- SISTEM INTERSECTION OBSERVER ---
         const scrollContainer = document.getElementById('mainContainer');
@@ -917,100 +855,26 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // --- LOGIKA PEREKAMAN VOICE NOTE (MEDIA RECORDER) ---
-        let mediaRecorder;
-        let audioChunks = [];
-        let isRecording = false;
-        let recordedAudioBlob = null;
-
-        window.toggleRecording = async function() {
-            const btn = document.getElementById('recBtn');
-            const label = document.getElementById('recordLabel');
-            const icon = document.getElementById('recordIcon');
-            const preview = document.getElementById('audioPreview');
-
-            if (!isRecording) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    audioChunks = [];
-
-                    mediaRecorder.ondataavailable = e => {
-                        if (e.data.size > 0) audioChunks.push(e.data);
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        recordedAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        const audioUrl = URL.createObjectURL(recordedAudioBlob);
-                        preview.src = audioUrl;
-                        preview.classList.add('active');
-                    };
-
-                    mediaRecorder.start();
-                    isRecording = true;
-                    btn.classList.add('recording');
-                    icon.innerText = '⏹️';
-                    label.innerText = 'Selesai Merekam';
-                    preview.classList.remove('active');
-                    recordedAudioBlob = null;
-                } catch (err) {
-                    alert('Mikrofon tidak dapat diakses. Pastikan Anda mengizinkan akses mikrofon di browser.');
-                    console.error(err);
-                }
-            } else {
-                mediaRecorder.stop();
-                isRecording = false;
-                btn.classList.remove('recording');
-                icon.innerText = '🎙️';
-                label.innerText = 'Rekam Ulang Suara';
-            }
-        }
-
-        // --- FIREBASE WEDDING WISH & VOICE NOTE SUBMIT ---
+        // --- FIREBASE WEDDING WISH ---
         window.handleWishSubmit = async function(event) {
             event.preventDefault();
             const nameInput = document.getElementById('wishName');
             const messageInput = document.getElementById('wishMessage');
-            const submitBtn = document.getElementById('submitBtn');
-
-            submitBtn.innerText = "Mengirim...";
-            submitBtn.disabled = true;
 
             try {
-                let audioUrl = "";
-
-                if (recordedAudioBlob) {
-                    const fileName = `voice_notes/${Date.now()}_${Math.random().toString(36).substring(2)}.webm`;
-                    const storageRef = ref(storage, fileName);
-                    await uploadBytes(storageRef, recordedAudioBlob);
-                    audioUrl = await getDownloadURL(storageRef);
-                }
-
                 await addDoc(collection(db, "wedding_wishes"), {
-                    nama: nameInput.value.trim(),
-                    pesan: messageInput.value.trim(),
-                    audioUrl: audioUrl,
+                    nama: nameInput.value,
+                    pesan: messageInput.value,
                     timestamp: serverTimestamp()
                 });
-
                 event.target.reset();
-                recordedAudioBlob = null;
-                document.getElementById('audioPreview').classList.remove('active');
-                document.getElementById('audioPreview').src = '';
-                document.getElementById('recordIcon').innerText = '🎙️';
-                document.getElementById('recordLabel').innerText = 'Rekam Suara Doa';
-                
                 alert('Terima kasih! Ucapan dan doa restu Anda berhasil dikirim.');
             } catch (error) {
                 console.error("Gagal mengirim ucapan: ", error);
                 alert("Maaf, terjadi kesalahan saat mengirim ucapan. Silakan coba lagi.");
-            } finally {
-                submitBtn.innerText = "Kirimkan Ucapan & Doa";
-                submitBtn.disabled = false;
             }
         }
 
-        // --- REAL-TIME LISTENER UNTUK MENAMPILKAN UCAPAN & VN ---
         const q = query(collection(db, "wedding_wishes"), orderBy("timestamp", "desc"));
         onSnapshot(q, (snapshot) => {
             const commentsList = document.getElementById('wishCommentsList');
@@ -1025,9 +889,6 @@
                 const data = doc.data();
                 const card = document.createElement('div');
                 card.className = 'comment-card';
-
-                let audioTag = data.audioUrl ? `<audio controls class="comment-audio"><source src="${data.audioUrl}" type="audio/webm">Browser Anda tidak mendukung pemutar audio.</audio>` : '';
-
                 card.innerHTML = `
                     <div class="comment-header">
                         ${escapeHtml(data.nama || "Tanpa Nama")} <span class="verified">✔</span>
@@ -1035,7 +896,6 @@
                     <div class="comment-body">
                         ${escapeHtml(data.pesan || "")}
                     </div>
-                    ${audioTag}
                 `;
                 commentsList.appendChild(card);
             });
